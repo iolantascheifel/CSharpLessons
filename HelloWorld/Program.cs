@@ -27,7 +27,10 @@ class Program
                 }
             }
 
-    CountSumInFourDigitNumber();
+
+    ConvertCelsiusToFahrenheit();
+    CalculateBMI();
+    CountSumInFourDigitNumber(); 
     }
 
     // ****************************
@@ -112,5 +115,52 @@ class Program
 
         }   
         
+    }
+
+    // ****************************
+    // *   Convert Celsius to Fahrenheit  *
+    // ****************************
+
+    static void ConvertCelsiusToFahrenheit()
+    {
+        Console.WriteLine("Enter temperature in Celsius:");
+        string input = Console.ReadLine();
+
+        if (double.TryParse(input, out double celsius))
+        {
+            double fahrenheit = (celsius * 9 / 5) + 32;
+            Console.WriteLine($"{celsius}°C = {fahrenheit}°F");
+        }
+        else
+        {
+            Console.WriteLine("Error: enter a valid number");
+        }
+    }
+
+    // ****************************
+    // *   Calculate BMI  *
+    // ****************************
+
+
+    static void CalculateBMI()
+    {
+        Console.WriteLine("Введите ваш вес в килограммах:");
+        string weightInput = Console.ReadLine();
+
+        Console.WriteLine("Введите ваш рост в сантиметрах:");
+        string heightInput = Console.ReadLine();
+
+        if (double.TryParse(weightInput, out double weight) && 
+            double.TryParse(heightInput, out double heightCm))
+        {
+            double heightMeters = heightCm / 100; 
+            double bmi = weight / (heightMeters * heightMeters);
+
+            Console.WriteLine($"Ваш индекс массы тела (ИМТ): {bmi:F2}");
+        }
+        else
+        {
+            Console.WriteLine("Ошибка: введите корректные числовые значения.");
+        }
     }
 }
