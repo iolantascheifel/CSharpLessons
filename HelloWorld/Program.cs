@@ -3,7 +3,9 @@
 class Program
 {
     static void Main(string[] args)
-    {
+   {
+
+    ConvertSecondsToTime(3650);
 
         int number;
         
@@ -25,9 +27,12 @@ class Program
                 }
             }
 
-        ConvertSecondsToTime(3650);
-
+    CountSumInFourDigitNumber();
     }
+
+    // ****************************
+    // *   Convert seconds to minutes and hours *
+    // ****************************
 
     static void ConvertSecondsToTime(int time) 
     {
@@ -39,22 +44,26 @@ class Program
         Console.WriteLine($"{seconds}, {minutes}, {hours}");
     }
 
+    // ****************************
+    // *   Methods to check if number is palindrome   *
+    // ****************************
+
     static bool CheckThreeDigitPalindrome(int number) 
     {
         if ((number >= 100 && number <= 999) || (number <= -100 && number >= -999))
         {
             if (IsPalindrome(number)) 
             {
-                Console.WriteLine("Это палиндром!");
+                Console.WriteLine("This is palindrome");
             } else 
             {
-                Console.WriteLine("Это не палиндром.");
+                Console.WriteLine("This is not palindrome");
             }
             return true;
         }
         else
         {
-            Console.WriteLine("Число не трёхзначное. Попробуйте снова.");
+            Console.WriteLine("This is not a three-digit number. Enter again.");
             return false;
         }
         
@@ -69,5 +78,39 @@ class Program
         string reversedText = new string(charArray);
 
        return initialText == reversedText;
+    }
+
+    // ****************************
+    // *   Count sum in 4-digit number   *
+    // ****************************
+
+    static void CountSumInFourDigitNumber() 
+    {
+        int number;
+
+        while (true) 
+        {
+        Console.WriteLine("Enter 4-digit number:");
+        string input = Console.ReadLine();
+
+        char[] charArray = input.ToCharArray();
+
+            if(charArray.Length == 4 && int.TryParse(input, out number))
+            {
+                int sum = 0;
+                foreach (char digit in number.ToString())
+                {
+                    sum += int.Parse(digit.ToString());
+                }
+
+                Console.WriteLine($"Sum of all digits of {number} equals to {sum}");
+            }
+            else 
+            {
+                Console.WriteLine($"Error: enter correct number");
+            }
+
+        }   
+        
     }
 }
