@@ -4,33 +4,31 @@ class Program
 {
     static void Main(string[] args)
    {
-
-    ConvertSecondsToTime(3650);
-
-        int number;
+        PrintNumber(34);
+        PrintSeason(8);
+        GreetAccordingToTime(15);
+        СуществуетЛиТреугольник(4,6,8);
         
-        while (true)
-            {
-                Console.WriteLine("Введите 3x значное число:");
-                string input = Console.ReadLine();
+        // Console.WriteLine(ConvertToChar(65_536 + 124));
 
-                if (int.TryParse(input, out number))
-                {
-                    if (CheckThreeDigitPalindrome(number))
-                    {
-                        break;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Ошибка: введите корректное целое число.");
-                }
-            }
+        try
+        {
+            PrintNumber(22.5);
+        } 
+        catch (FormatException ex) 
+        {
+            Console.WriteLine("Неверное число");
+        }
+        // catch (Exception ex) 
+        // {
+        //     Console.WriteLine(ex.Message);
+        // }
+        finally 
+        {
+            Console.WriteLine("end block");
+        }
+        
 
-
-    ConvertCelsiusToFahrenheit();
-    CalculateBMI();
-    CountSumInFourDigitNumber(); 
     }
 
     // ****************************
@@ -53,88 +51,35 @@ class Program
 
     static bool CheckThreeDigitPalindrome(int number) 
     {
-        if ((number >= 100 && number <= 999) || (number <= -100 && number >= -999))
-        {
-            if (IsPalindrome(number)) 
-            {
-                Console.WriteLine("This is palindrome");
-            } else 
-            {
-                Console.WriteLine("This is not palindrome");
-            }
-            return true;
-        }
-        else
-        {
-            Console.WriteLine("This is not a three-digit number. Enter again.");
-            return false;
-        }
-        
+        int firstNumber = number % 10;
+        int lastNumber = number / 100;
+
+       return firstNumber == lastNumber;
     }
 
-    static bool IsPalindrome(int number)
-
-    {
-        string initialText = Math.Abs(number).ToString(); 
-        char[] charArray = initialText.ToCharArray();
-        Array.Reverse(charArray);
-        string reversedText = new string(charArray);
-
-       return initialText == reversedText;
-    }
 
     // ****************************
     // *   Count sum in 4-digit number   *
     // ****************************
 
-    static void CountSumInFourDigitNumber() 
+    static int CountSumInFourDigitNumber(int number) 
     {
-        int number;
+        int fourthNumber = number % 10;
+        int thirdNumber = (number / 10) % 10;
+        int secondNumber = (number / 100) % 10;
+        int firstNumber = number / 1000;
 
-        while (true) 
-        {
-        Console.WriteLine("Enter 4-digit number:");
-        string input = Console.ReadLine();
+        return fourthNumber + thirdNumber + secondNumber + firstNumber;  
 
-        char[] charArray = input.ToCharArray();
-
-            if(charArray.Length == 4 && int.TryParse(input, out number))
-            {
-                int sum = 0;
-                foreach (char digit in number.ToString())
-                {
-                    sum += int.Parse(digit.ToString());
-                }
-
-                Console.WriteLine($"Sum of all digits of {number} equals to {sum}");
-            }
-            else 
-            {
-                Console.WriteLine($"Error: enter correct number");
-            }
-
-        }   
-        
     }
 
     // ****************************
     // *   Convert Celsius to Fahrenheit  *
     // ****************************
 
-    static void ConvertCelsiusToFahrenheit()
+    static double ConvertCelsiusToFahrenheit(double celsius)
     {
-        Console.WriteLine("Enter temperature in Celsius:");
-        string input = Console.ReadLine();
-
-        if (double.TryParse(input, out double celsius))
-        {
-            double fahrenheit = (celsius * 9 / 5) + 32;
-            Console.WriteLine($"{celsius}°C = {fahrenheit}°F");
-        }
-        else
-        {
-            Console.WriteLine("Error: enter a valid number");
-        }
+        return Math.Round((celsius * 9 / 5) + 32, 2);
     }
 
     // ****************************
@@ -142,25 +87,192 @@ class Program
     // ****************************
 
 
-    static void CalculateBMI()
+    static double CalculateBMI(int height, double weight)
     {
-        Console.WriteLine("Введите ваш вес в килограммах:");
-        string weightInput = Console.ReadLine();
+        double heightMeters = (double)height / 100;
+        double bmi = weight / (heightMeters * heightMeters);
+        return Math.Round(bmi, 2);
+    }
 
-        Console.WriteLine("Введите ваш рост в сантиметрах:");
-        string heightInput = Console.ReadLine();
+    //Напишите программу, которая принимает от пользователя символ (тип char) и выводит следующий за ним символ в таблице ASCII.
 
-        if (double.TryParse(weightInput, out double weight) && 
-            double.TryParse(heightInput, out double heightCm))
+    static char CalculateChar(char n)
+    {  
+        return (char) (n + 1);
+    }
+
+    //Пользователь вводит два числа. Одно из них — целое (int), а другое — число с плавающей запятой (double). Ваша задача — выполнить деление и обработать возможные ошибки.
+
+    // Условие:
+    // Напишите метод double Divide(int a, double b), который:
+    // 1. Делит a на b.
+    // 2. Выбрасывает исключение ArgumentException, если b == 0.
+    // 3. Возвращает результат в виде double.
+    // Напишите код, который вызывает этот метод с вводом пользователя и выводит результат.
+
+    static double Division(int a, double b)
+    {
+        if(b == 0)
         {
-            double heightMeters = heightCm / 100; 
-            double bmi = weight / (heightMeters * heightMeters);
-
-            Console.WriteLine($"Ваш индекс массы тела (ИМТ): {bmi:F2}");
+            throw new Exception("Error, you can't divide by 0");
         }
-        else
+
+        return a / b;
+    } 
+
+    /* 
+    Пользователь вводит число, и вам нужно округлить его до целого значения. 
+    Однако, если число слишком большое для хранения в int, программа должна выбросить ошибку.
+
+    Условие:
+    Напишите метод int RoundAndCheck(double value), который:
+    1. Округляет value до ближайшего целого.
+    2. Если результат выходит за пределы int, выбрасывает OverflowException.
+    3. Возвращает округленное значение.
+
+    Напишите код, который вызывает этот метод и обрабатывает ошибки.
+    */
+
+    static int RoundAndCheck(double value) 
+    {
+        return checked((int) value); 
+    }
+
+    static long SafeSum(long a, double b)
+    {
+        return checked((long) (a + b));
+    }
+
+    // Работа с символами
+    // Описание:
+    // Напишите программу, которая принимает от пользователя омер символа в ASCII и выводит символ которому он соответствует.
+
+    static char ConvertToChar(int number)
+    {
+        return (char) number;
+    }
+
+
+    /*
+    Напишите программу, которая запрашивает у пользователя текущий час (от 0 до 23) и выводит сообщение:
+
+    "Доброе утро!", если время от 6 до 11,
+
+    "Добрый день!", если время от 12 до 17,
+
+    "Добрый вечер!", если время от 18 до 22,
+
+    "Доброй ночи!", если время от 23 до 5.
+    */
+
+    static void GreetAccordingToTime(int hour)
+    {
+        if (hour >= 6 && hour <= 11)
         {
-            Console.WriteLine("Ошибка: введите корректные числовые значения.");
+            Console.WriteLine("Доброе утро!");
+        }
+        else if (hour >= 12 && hour <= 17)
+        {
+            Console.WriteLine("Добрый день!");
+        }
+        else if (hour >= 18 && hour <= 22)
+        {
+            Console.WriteLine("Добрый вечер!");
+        } else if (hour >= 23 && (hour >= 0 && hour <= 5)) 
+        {
+            Console.WriteLine("Доброй ночи!");
+        } else 
+        {
+            throw new Exception("Неправильное число!");
         }
     }
+
+    /*
+
+    Напишите программу, которая запрашивает у пользователя номер месяца (от 1 до 12) и выводит название сезона:
+
+    "Зима" для декабря (12), января (1) и февраля (2),
+
+    "Весна" для марта (3), апреля (4) и мая (5),
+
+    "Лето" для июня (6), июля (7) и августа (8),
+
+    "Осень" для сентября (9), октября (10) и ноября (11).
+    */
+
+    static void PrintSeason(int mouth)
+    {
+        switch (mouth)
+        {
+            case 12:
+            case 1:
+            case 2:
+                Console.WriteLine("Winter");
+                break;
+            case 3:
+            case 4:
+            case 5:
+                Console.WriteLine("Sping");
+                break;
+            case 6:
+            case 7:
+            case 8:
+                Console.WriteLine("Summer");
+                break;
+            case 9:
+            case 10:
+            case 11:
+                Console.WriteLine("Autumn");
+                break;
+            default: 
+                throw new Exception("Неправильное число!");
+        }
+    }
+
+    /*
+    Напишите программу, которая запрашивает у пользователя число и выводит:
+
+    "Положительное", если число больше 0,
+
+    "Отрицательное", если число меньше 0,
+
+    "Ноль", если число равно 0.
+    */
+
+    static void PrintNumber(int number)
+    {
+        if (number > 0)
+        {
+            Console.WriteLine("Положительное");
+        } else if (number < 0)
+        {
+            Console.WriteLine("Отрицательное");
+        } else
+        {
+            Console.WriteLine("Ноль");
+        }
+    }
+
+    /*
+    Напишите программу, которая запрашивает у пользователя длины трёх сторон
+    и проверяет, может ли существовать треугольник с такими сторонами. 
+    Треугольник существует, если сумма любых двух сторон больше третьей. 
+    Выведите "Треугольник существует" или "Треугольник не существует".
+    */
+
+    static void СуществуетЛиТреугольник(int a, int b, int c)
+    {
+        int sum1 = a + b;
+        int sum2 = b + c;
+        int sum3 = a + c;
+        if(sum1 > c && sum2 > a && sum3 > b)
+        {
+            Console.WriteLine("Существует");
+        } else
+        {
+            Console.WriteLine("Не существует");
+        }
+       
+    }
+
 }
