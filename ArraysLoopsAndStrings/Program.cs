@@ -93,6 +93,9 @@ bool CheckRecord(string str)
 		// {
 		// 	return false;
 		// }
+
+		// оптимизированая версия
+
 		if(str[i] == 'A' && ++count >= 2)
 		{
 			return false;
@@ -102,4 +105,69 @@ bool CheckRecord(string str)
 	return true;
 }
 
-Console.WriteLine(CheckRecord("PPLLAPL"));
+/* 
+1. Сумма всех элементов массива
+Дан массив целых чисел. Найти сумму всех элементов.
+*/
+
+int FindSumOfAllNumbers (int[] arr) 
+{
+	int sum = 0;
+	foreach (int num in arr)
+	{
+		sum += num;
+	}
+	return sum;
+}
+
+// int result = FindSumOfAllNumbers(new int[] { 1, 9, 3 });
+// Console.WriteLine(result);
+
+// Console.WriteLine(FindSumOfAllNumbers({1,2,3}));
+// переписать под foreach
+
+/* 
+2. Найти максимальный элемент
+Дан массив целых чисел. Найти максимальное значение.
+*/
+
+int FindTheBiggest (int[] arr)
+{
+	int max = arr[0];
+
+	foreach (int num in arr)
+	{
+	    if (num > max)
+	    {
+	        max = num;
+	    }
+	}
+	return max;
+}
+
+// int result = FindTheBiggest(new int[] { 1, 9, 3 });
+// Console.WriteLine(result);
+
+/* 
+3. Подсчитать чётные числа
+Дан массив целых чисел. Подсчитать количество чётных.
+*/
+
+int FindNumberOfEvenNumbers (int[] arr)
+{
+	List<int> evenNumbers = [];
+
+	foreach(int num in arr) 
+	{
+		if (num % 2 == 0)
+		{
+			evenNumbers.Add(num);
+		}
+	}
+	return evenNumbers.Count;
+}
+
+int result = FindNumberOfEvenNumbers(new int[] { 1, 9, 3, 2, 6, 8, 3, 9, 5, 8 });
+Console.WriteLine(result);
+
+
