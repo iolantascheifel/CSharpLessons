@@ -13,7 +13,7 @@ class Program
 
         try
         {
-            PrintNumber(22.5);
+            PrintNumber(22);
         } 
         catch (FormatException ex) 
         {

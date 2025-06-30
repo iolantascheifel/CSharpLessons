@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorld", "HelloWorld\HelloWorld.csproj", "{076B73DE-673C-4952-B65E-2B00937CC599}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArraysLoopsAndStrings", "ArraysLoopsAndStrings\ArraysLoopsAndStrings.csproj", "{D03D3B29-D275-404F-A29E-91AFD405AF0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOPPrinciple", "OOPPrinciple\OOPPrinciple.csproj", "{8F248A64-F966-4E47-B962-FC5721FAEB59}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{076B73DE-673C-4952-B65E-2B00937CC599}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{076B73DE-673C-4952-B65E-2B00937CC599}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{076B73DE-673C-4952-B65E-2B00937CC599}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{076B73DE-673C-4952-B65E-2B00937CC599}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D03D3B29-D275-404F-A29E-91AFD405AF0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D03D3B29-D275-404F-A29E-91AFD405AF0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D03D3B29-D275-404F-A29E-91AFD405AF0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D03D3B29-D275-404F-A29E-91AFD405AF0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F248A64-F966-4E47-B962-FC5721FAEB59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F248A64-F966-4E47-B962-FC5721FAEB59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F248A64-F966-4E47-B962-FC5721FAEB59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F248A64-F966-4E47-B962-FC5721FAEB59}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
