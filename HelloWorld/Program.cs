@@ -43,6 +43,7 @@ class Program
         int hours = totalMinutes / 60;
 
         Console.WriteLine($"{seconds}, {minutes}, {hours}");
+        Console.WriteLine(string.Format("{0}, {1}, {2}", seconds, minutes, hours));
     }
 
     // ****************************
