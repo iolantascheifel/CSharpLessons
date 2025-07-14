@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArraysLoopsAndStrings", "Ar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOPPrinciple", "OOPPrinciple\OOPPrinciple.csproj", "{8F248A64-F966-4E47-B962-FC5721FAEB59}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeMachineProject", "CoffeeMachineProject\CoffeeMachineProject.csproj", "{FC24BDB3-E188-40F9-BE5B-40FF3D7F898D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{8F248A64-F966-4E47-B962-FC5721FAEB59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F248A64-F966-4E47-B962-FC5721FAEB59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F248A64-F966-4E47-B962-FC5721FAEB59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC24BDB3-E188-40F9-BE5B-40FF3D7F898D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC24BDB3-E188-40F9-BE5B-40FF3D7F898D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC24BDB3-E188-40F9-BE5B-40FF3D7F898D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC24BDB3-E188-40F9-BE5B-40FF3D7F898D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
