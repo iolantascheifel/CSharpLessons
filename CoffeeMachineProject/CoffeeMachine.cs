@@ -4,68 +4,28 @@ namespace CoffeeMachineProject;
 
 public class CoffeeMachine: ICoffeeMachine
 {
-    List<Order> _orders = new List<Order>();
+    private IOrderRepository _orderRepository = new OrderRepository();
 
-    private CoffeeIngredientStorage storage;
+    private IOrderFactory _orderFactory = new OrderFactory();
+    
+    private ICoffeeIngredientFacade _coffeeIngredientFacade = new CoffeeIngredientFacade();
 
-    private Account account;
+    private IAccount _account;
     
-    // private storage
-    // private account
+    private ICoffeePriceFacade _coffeePriceFacade = new CoffeePriceFacade();
+
+    private ICoffeeOrderFacade _coffeeOrderFacade;
     
+    public CoffeeMachine(ICoffeeIngredientStorage storage, IAccount account)
+    {
+        _account = account;
+        _coffeeOrderFacade = new CoffeeOrderFacade(storage, account);
+    }
     public int SelectCoffee(CoffeeType coffeeType, CoffeeSize coffeeSize)
     {
-        string coffeeName = coffeeType == CoffeeType.Espresso 
-            ? $"Эспрессо {coffeeSize.ToString()}"
-            : coffeeType == CoffeeType.Latte
-                ? $"Латте {coffeeSize.ToString()}"
-                : $"Капучино {coffeeSize.ToString()}";
-        CoffeeIngredient coffeeIngredient = new CoffeeIngredient();
-        switch (coffeeType)
-        {
-            case CoffeeType.Espresso:
-                coffeeIngredient.CoffeeBeans = 8;
-                coffeeIngredient.Water = 50;
-                break;
-            case CoffeeType.Latte:
-                coffeeIngredient.CoffeeBeans = 8;
-                coffeeIngredient.Milk = 200;
-                break;
-            case CoffeeType.Cappuccino:
-                coffeeIngredient.CoffeeBeans = 8;
-                coffeeIngredient.Milk = 100;
-                coffeeIngredient.Water = 50;
-                break;
-        }
+        Order order = _orderFactory.CreateOrder(coffeeType, coffeeSize);
         
-        double coefficient = (double)coffeeSize / (double)CoffeeSize.S;
-
-        coffeeIngredient.CoffeeBeans *= coefficient;
-        coffeeIngredient.Water *= coefficient;
-        coffeeIngredient.Milk *= coefficient;
-        coffeeIngredient.Sugar *= coefficient;
-
-        double price = 10.0 * coffeeIngredient.CoffeeBeans / 8.0
-                       + 5.0 * coffeeIngredient.Water / 50.0
-                       + 20.0 * coffeeIngredient.Milk / 100.0
-                       + 5.0 * coffeeIngredient.Sugar / 5.0;
-
-        Coffee coffee = new Coffee()
-        {
-            Name = coffeeName,
-            CoffeeIngredient = coffeeIngredient,
-            CoffeeSize = coffeeSize,
-            CoffeeType = coffeeType,
-        };
-
-        Order order = new Order()
-        {
-            Coffee = coffee,
-            OrderStatus = OrderStatus.Created,
-            Price = price,
-            OrderNumber = OrderNumberCounter.Current++,
-        };
-        _orders.Add(order);
+        _orderRepository.AddOrder(order);
 
         return order.OrderNumber;
     }
@@ -89,48 +49,105 @@ public class CoffeeMachine: ICoffeeMachine
 
     public void AddDeposit(int orderNumber, double amount)
     {
-        Order order = new Order();
-        
-        order.Deposit += amount;
-
-        if (order.Deposit >= order.Price)
+        Order? order = _orderRepository.GetOrder(orderNumber);
+        if (order == null)
         {
-            order.OrderStatus = OrderStatus.Created;
+            return;
         }
 
         if (order.Deposit < order.Price)
         {
-            Console.WriteLine("Не достаточно средств.");
+            Console.WriteLine("Not enough money.");
         }
+        
+        if (order.Deposit >= order.Price)
+        {
+            order.OrderStatus = OrderStatus.Created;
+        }
+        
+        order.Deposit += amount;
     }
 
     public void AddWater(int orderNumber)
     {
-        throw new NotImplementedException();
+        AddAdditional(orderNumber,
+            _coffeeIngredientFacade.GetWaterAdditionalFacade(),
+            _coffeePriceFacade.GetWaterAdditionalPriceFacade());
     }
 
     public void AddMilk(int orderNumber)
     {
-        throw new NotImplementedException();
+        AddAdditional(orderNumber,
+            _coffeeIngredientFacade.GetMilkAdditionalFacade(),
+            _coffeePriceFacade.GetMilkAdditionalPriceFacade());
     }
 
     public void AddCoffeeBeans(int orderNumber)
     {
-        throw new NotImplementedException();
+        AddAdditional(orderNumber,
+            _coffeeIngredientFacade.GetBeansAdditionalFacade(),
+            _coffeePriceFacade.GetBeansAdditionalPriceFacade());
+        // Order? order = FindOrderByNumber(orderNumber);
+        // if (order == null)
+        // {
+        //     return;
+        // }
+        //
+        // order.Coffee.CoffeeIngredient.CoffeeBeans += 8;
+        //
+        // if (CheckIngredients(order))
+        // {
+        //     order.Price += 10.0;
+        //     Console.WriteLine("Beans added");
+        // }
     }
 
     public void AddSugar(int orderNumber)
     {
-        throw new NotImplementedException();
+        AddAdditional(orderNumber,
+            _coffeeIngredientFacade.GetSugarAdditionalFacade(),
+            _coffeePriceFacade.GetSugarAdditionalPriceFacade());
     }
 
-    public Coffee PrepareCoffee(int orderNumber)
+    private void AddAdditional(int orderNumber,
+        IAdditionalFacade additionalFacade, IAdditionalPriceFacade additionalPriceFacade)
     {
-        throw new NotImplementedException();
+        Order? order = _orderRepository.GetOrder(orderNumber);
+        if (order == null)
+        {
+            return;
+        }
+        
+        additionalFacade.AddAdditional(order);
+        additionalPriceFacade.UpdatePrice(order);
+    }
+    
+
+    public Coffee? PrepareCoffee(int orderNumber)
+    {
+        Order? order = _orderRepository.GetOrder(orderNumber);
+        
+        return _coffeeOrderFacade.PrepareCoffee(order);
     }
 
+    // TODO: Account Facade
+    // TODO: Add syrup
     public double GiveChange(int orderNumber)
     {
-        throw new NotImplementedException();
+        Order? order = _orderRepository.GetOrder(orderNumber);
+        
+        if (order == null)
+        {
+            return 0.0;
+        }
+
+        double change = order.Deposit - order.Price;
+        order.Deposit = 0;
+        order.OrderStatus = OrderStatus.Completed;
+        _account.Withdraw(change);
+
+        Console.WriteLine($"Сдача: {change}");
+        return change;
     }
+   
 }

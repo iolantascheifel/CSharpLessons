@@ -19,7 +19,7 @@ public class CoffeeIngredientStorage: ICoffeeIngredientStorage
     {
         if (_coffeeIngredient.CoffeeBeans < coffeeIngredient.CoffeeBeans)
         {
-            Console.WriteLine("Not enough ingredients");
+            Console.WriteLine("Not enough beans");
             return false;
         }
 

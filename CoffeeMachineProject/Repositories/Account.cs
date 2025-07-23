@@ -1,8 +1,8 @@
 namespace CoffeeMachineProject;
 
-public class Account
+public class Account: IAccount
 {
-    public double Balance { get; set; }
+    public double Balance { get; private set; }
 
     public void Deposit(double amount)
     {
