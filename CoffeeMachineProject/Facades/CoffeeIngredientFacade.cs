@@ -12,6 +12,8 @@ public class CoffeeIngredientFacade: ICoffeeIngredientFacade
 
     public const double BaseWater = 50.0;
     
+    public const double BaseSyrup = 4.0;
+    
     public CoffeeIngredient GetLatteIngredient()
     {
         return new CoffeeIngredient()
@@ -47,6 +49,7 @@ public class CoffeeIngredientFacade: ICoffeeIngredientFacade
         coffeeIngredient.CoffeeBeans *= coefficient;
         coffeeIngredient.Water *= coefficient;
         coffeeIngredient.Milk *= coefficient;
+        coffeeIngredient.Syrup *= coefficient;
     }
 
     public IAdditionalFacade GetMilkAdditionalFacade()
@@ -67,5 +70,10 @@ public class CoffeeIngredientFacade: ICoffeeIngredientFacade
     public IAdditionalFacade GetSugarAdditionalFacade()
     {
         return new SugarAdditionalFacade();
+    }
+    
+    public IAdditionalFacade GetSyrupAdditionalFacade()
+    {
+        return new SyrupAdditionalFacade();
     }
 }

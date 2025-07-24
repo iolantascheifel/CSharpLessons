@@ -12,5 +12,7 @@ public interface ICoffeePriceFacade
     IAdditionalPriceFacade GetWaterAdditionalPriceFacade();
     
     IAdditionalPriceFacade GetBeansAdditionalPriceFacade();
+    
+    IAdditionalPriceFacade GetSyrupAdditionalPriceFacade();
 
 }

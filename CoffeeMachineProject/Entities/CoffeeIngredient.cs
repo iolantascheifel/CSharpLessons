@@ -6,4 +6,5 @@ public class CoffeeIngredient
     public double Milk { get; set; }
     public double Sugar { get; set; }
     public double CoffeeBeans { get; set; }
+    public double Syrup { get; set; }
 }

@@ -10,13 +10,17 @@ public class CoffeePriceFacade: ICoffeePriceFacade
     
     public const double WaterPrice = 5.0;
     
+    public const double SyrupPrice = 5.0;
+    
     
     public double GetPrice(CoffeeIngredient coffeeIngredient)
     {
         return BeansPrice * coffeeIngredient.CoffeeBeans / CoffeeIngredientFacade.BaseBeans
                + WaterPrice * coffeeIngredient.Water / CoffeeIngredientFacade.BaseWater
                + MilkPrice * coffeeIngredient.Milk / CoffeeIngredientFacade.BaseMilk
-               + SugarPrice * coffeeIngredient.Sugar / CoffeeIngredientFacade.BaseSugar;
+               + SugarPrice * coffeeIngredient.Sugar / CoffeeIngredientFacade.BaseSugar
+               + SyrupPrice * coffeeIngredient.Syrup / CoffeeIngredientFacade.BaseSyrup;
+        
     }
 
     public IAdditionalPriceFacade GetMilkAdditionalPriceFacade()
@@ -37,6 +41,11 @@ public class CoffeePriceFacade: ICoffeePriceFacade
     public IAdditionalPriceFacade GetBeansAdditionalPriceFacade()
     {
         return new  BeansAdditionalPriceFacade();
+    }
+
+    public IAdditionalPriceFacade GetSyrupAdditionalPriceFacade()
+    {
+        return new SyrupAdditionalPriceFacade();
     }
 }
 

@@ -10,6 +10,7 @@ public interface ICoffeeMachine
     void AddMilk(int orderNumber);
     void AddCoffeeBeans(int orderNumber);
     void AddSugar(int orderNumber);
+    void AddSyrup(int orderNumber);
     Coffee? PrepareCoffee(int orderNumber);
     double GiveChange(int orderNumber);
 }

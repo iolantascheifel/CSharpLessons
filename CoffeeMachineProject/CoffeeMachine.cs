@@ -16,10 +16,13 @@ public class CoffeeMachine: ICoffeeMachine
 
     private ICoffeeOrderFacade _coffeeOrderFacade;
     
+    private IAccountFacade _accountFacade;
+    
     public CoffeeMachine(ICoffeeIngredientStorage storage, IAccount account)
     {
         _account = account;
         _coffeeOrderFacade = new CoffeeOrderFacade(storage, account);
+        _accountFacade = new AccountFacade(_account);
     }
     public int SelectCoffee(CoffeeType coffeeType, CoffeeSize coffeeSize)
     {
@@ -87,19 +90,6 @@ public class CoffeeMachine: ICoffeeMachine
         AddAdditional(orderNumber,
             _coffeeIngredientFacade.GetBeansAdditionalFacade(),
             _coffeePriceFacade.GetBeansAdditionalPriceFacade());
-        // Order? order = FindOrderByNumber(orderNumber);
-        // if (order == null)
-        // {
-        //     return;
-        // }
-        //
-        // order.Coffee.CoffeeIngredient.CoffeeBeans += 8;
-        //
-        // if (CheckIngredients(order))
-        // {
-        //     order.Price += 10.0;
-        //     Console.WriteLine("Beans added");
-        // }
     }
 
     public void AddSugar(int orderNumber)
@@ -107,6 +97,13 @@ public class CoffeeMachine: ICoffeeMachine
         AddAdditional(orderNumber,
             _coffeeIngredientFacade.GetSugarAdditionalFacade(),
             _coffeePriceFacade.GetSugarAdditionalPriceFacade());
+    }
+
+    public void AddSyrup(int orderNumber)
+    {
+        AddAdditional(orderNumber,
+            _coffeeIngredientFacade.GetSyrupAdditionalFacade(),
+            _coffeePriceFacade.GetSyrupAdditionalPriceFacade());
     }
 
     private void AddAdditional(int orderNumber,
@@ -130,8 +127,6 @@ public class CoffeeMachine: ICoffeeMachine
         return _coffeeOrderFacade.PrepareCoffee(order);
     }
 
-    // TODO: Account Facade
-    // TODO: Add syrup
     public double GiveChange(int orderNumber)
     {
         Order? order = _orderRepository.GetOrder(orderNumber);
@@ -140,14 +135,7 @@ public class CoffeeMachine: ICoffeeMachine
         {
             return 0.0;
         }
-
-        double change = order.Deposit - order.Price;
-        order.Deposit = 0;
-        order.OrderStatus = OrderStatus.Completed;
-        _account.Withdraw(change);
-
-        Console.WriteLine($"Сдача: {change}");
-        return change;
+        return _accountFacade.GiveChange(order);
     }
    
 }

@@ -6,6 +6,7 @@ public class CoffeeIngredientStorage: ICoffeeIngredientStorage
     private const double MaxMilkVolume = 5000;
     private const double MaxSugarVolume = 5000;
     private const double MaxCoffeeBeansVolume = 5000;
+    private const double MaxSyrupVolume = 5000;
 
     private readonly CoffeeIngredient _coffeeIngredient = new CoffeeIngredient() 
     {
@@ -13,6 +14,7 @@ public class CoffeeIngredientStorage: ICoffeeIngredientStorage
         Water = MaxWaterVolume,
         Milk = MaxMilkVolume,
         Sugar = MaxSugarVolume,
+        Syrup = MaxSyrupVolume,
     };
     
     public bool HasIngredients(CoffeeIngredient coffeeIngredient)
@@ -40,6 +42,12 @@ public class CoffeeIngredientStorage: ICoffeeIngredientStorage
             Console.WriteLine("Not enough sugar");
             return false;
         }
+        
+        if (_coffeeIngredient.Syrup < coffeeIngredient.Syrup)
+        {
+            Console.WriteLine("Not enough syrup");
+            return false;
+        }
         return true;
     }
 
@@ -53,6 +61,7 @@ public class CoffeeIngredientStorage: ICoffeeIngredientStorage
         _coffeeIngredient.Water -= ingredient.Water;
         _coffeeIngredient.Milk -= ingredient.Milk;
         _coffeeIngredient.Sugar -= ingredient.Sugar;
+        _coffeeIngredient.Syrup -= ingredient.Syrup;
     }
 
     public void AddIngredients()
@@ -61,5 +70,6 @@ public class CoffeeIngredientStorage: ICoffeeIngredientStorage
         _coffeeIngredient.Water = MaxWaterVolume;
         _coffeeIngredient.Milk = MaxMilkVolume;
         _coffeeIngredient.Sugar = MaxSugarVolume;
+        _coffeeIngredient.Syrup = MaxSyrupVolume;
     }
 }

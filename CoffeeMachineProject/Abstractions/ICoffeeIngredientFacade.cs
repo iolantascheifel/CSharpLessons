@@ -16,4 +16,5 @@ public interface ICoffeeIngredientFacade
     IAdditionalFacade GetWaterAdditionalFacade();
     IAdditionalFacade GetBeansAdditionalFacade();
     IAdditionalFacade GetSugarAdditionalFacade();
+    IAdditionalFacade GetSyrupAdditionalFacade();
 }
