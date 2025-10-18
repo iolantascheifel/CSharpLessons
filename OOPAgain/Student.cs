@@ -1,18 +1,13 @@
 namespace OOPAgain;
 
-public class Student: IStudent
+public class Student: Human, IStudent
 {
-    public required string Name { get; init; }
-    
-    public int Age { get; private set; }
-    
     public string GroupName { get; set; }
     public TypeOfStudies TypeOfStudies { get; private set; }
     public int StudyLevel { get; private set; }
 
-    public Student(int age)
+    public Student(int age): base(age)
     {
-        Age = age;
         TypeOfStudies = TypeOfStudies.University;
     }
 
@@ -26,6 +21,36 @@ public class Student: IStudent
         Random randomizer = new Random();
         StudyLevel = randomizer.Next(1, 100);
    
+    }
+
+    public void Study(string[] subjects)
+    {
+        foreach (string subject in subjects)
+        {
+            Console.WriteLine($"Student studies: {subject}");
+            Study();
+        }
+    }
+
+    public override void IntroduceYourself()
+    {
+        base.IntroduceYourself();
+        Console.WriteLine($"My studies is : {TypeOfStudies}");
+    }
+
+    public override void Eat()
+    {
+        Console.WriteLine("Student ate");
+    }
+
+    public override void Sleep()
+    {
+        Console.WriteLine("Student slept");
+    }
+
+    public new void Move()
+    {
+        Console.WriteLine("Student moving..");
     }
 
     public void PassExam()

@@ -7,7 +7,7 @@ public class Animal: IAnimal
     public List<string> Species { get; set; }
     public bool IsHungry { get; set; }
 
-    public void Eat()
+    public virtual void Eat()
     {
         IsHungry = false;
     }
