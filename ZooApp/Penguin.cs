@@ -1,16 +1,15 @@
 namespace ZooApp;
 
-public class Lion: Animal
+public class Penguin: Animal
 {
-    
     public override void Eat()
     {
         base.Eat();
-        Console.WriteLine("Lion is eating...");
+        Console.WriteLine("Penguin is eating...");
     }
 
     public override void MakeSound()
     {
-        Console.WriteLine("Lion's sound");
+        Console.WriteLine("Penguin's sound");
     }
 }

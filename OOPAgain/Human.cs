@@ -23,6 +23,6 @@ public abstract class Human
 
     public Human(int age)
     {
-        this.Age = age;
+        Age = age;
     }
 }

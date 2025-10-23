@@ -11,4 +11,9 @@ public class Animal: IAnimal
     {
         IsHungry = false;
     }
+
+    public virtual void MakeSound()
+    {
+        Console.WriteLine("Animal is making sound...");
+    }
 }
