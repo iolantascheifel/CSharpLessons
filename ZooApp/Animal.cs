@@ -1,6 +1,6 @@
 namespace ZooApp;
 
-public class Animal: IAnimal
+public abstract class Animal: IAnimal
 {
     public string Name { get; set; }
     public int Age { get; set; }
