@@ -16,8 +16,5 @@ class Program
         calculator.Divide(36, 8);
         calculator.Multiply(5, 8);
         calculator.Subtract(17, 8);
-        
-      
-
     }
 }

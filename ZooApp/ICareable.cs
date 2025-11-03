@@ -1,6 +1,6 @@
 namespace ZooApp;
 
-public interface ICare
+public interface ICareable
 {
     void Care();
 }

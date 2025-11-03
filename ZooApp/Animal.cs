@@ -7,11 +7,6 @@ public abstract class Animal: IAnimal
     public List<string> Species { get; set; }
     public bool IsHungry { get; set; }
 
-    public virtual void Eat()
-    {
-        IsHungry = false;
-    }
-
     public virtual void MakeSound()
     {
         Console.WriteLine("Animal is making sound...");

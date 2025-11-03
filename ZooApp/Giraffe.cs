@@ -1,13 +1,7 @@
 namespace ZooApp;
 
-public class Giraffe: Animal, ICare
+public class Giraffe: Animal, IFeedable, ICareable
 {
-    public override void Eat()
-    {
-        base.Eat();
-        Console.WriteLine("Giraffe is eating...");
-    }
-
     public override void MakeSound()
     {
         Console.WriteLine("Giraffe's sound");
@@ -16,5 +10,10 @@ public class Giraffe: Animal, ICare
     public void Care()
     {
        Console.WriteLine("Giraffe is sick and needs care");
+    }
+
+    public void Feed()
+    {
+        Console.WriteLine("Giraffe is eating");
     }
 }
