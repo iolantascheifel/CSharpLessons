@@ -14,6 +14,13 @@ public class CoffeeIngredientFacade: ICoffeeIngredientFacade
     
     public const double BaseSyrup = 4.0;
     
+    private IRepository<Unit, CoffeeIngredient> _repository;
+
+    public CoffeeIngredientFacade(IRepository<Unit, CoffeeIngredient> repository)
+    {
+        _repository = repository;
+    }
+    
     public CoffeeIngredient GetLatteIngredient()
     {
         return new CoffeeIngredient()
@@ -40,6 +47,51 @@ public class CoffeeIngredientFacade: ICoffeeIngredientFacade
             Water = BaseWater,
             Milk = BaseMilk,
         };
+    }
+
+    public bool HasIngredients(CoffeeIngredient coffeeIngredient)
+    {
+       CoffeeIngredient coffeeIngredients = _repository.Get(new Unit())!;
+       
+       if (coffeeIngredients.CoffeeBeans < coffeeIngredient.CoffeeBeans)
+       {
+           Console.WriteLine("Not enough beans");
+           return false;
+       }
+
+       if (coffeeIngredients.Water < coffeeIngredient.Water)
+       {
+           Console.WriteLine("Not enough water");
+           return false;
+       }
+
+       if (coffeeIngredients.Milk < coffeeIngredient.Milk)
+       {
+           Console.WriteLine("Not enough milk");
+           return false;
+       }
+
+       if (coffeeIngredients.Sugar < coffeeIngredient.Sugar)
+       {
+           Console.WriteLine("Not enough sugar");
+           return false;
+       }
+        
+       if (coffeeIngredients.Syrup < coffeeIngredient.Syrup)
+       {
+           Console.WriteLine("Not enough syrup");
+           return false;
+       }
+       return true;
+    }
+
+    public void UseIngredients(CoffeeIngredient ingredient)
+    {
+        if (!HasIngredients(ingredient))
+        {
+            _repository.Add(ingredient);
+        }
+        _repository.Remove(ingredient);
     }
 
     public void UpdateIngredientsByCoffeeSize(CoffeeIngredient coffeeIngredient, CoffeeSize coffeeSize)

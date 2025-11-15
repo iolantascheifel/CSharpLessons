@@ -4,8 +4,13 @@ namespace CoffeeMachineProject;
 
 public class CoffeeIngredientFactory: ICoffeeIngredientFactory
 {
-    
-    private CoffeeIngredientFacade _ingredientFacade = new CoffeeIngredientFacade();
+
+    private CoffeeIngredientFacade _ingredientFacade;
+
+    public CoffeeIngredientFactory(IRepository<Unit, CoffeeIngredient> repository)
+    {
+        _ingredientFacade = new CoffeeIngredientFacade(repository);
+    }
     public CoffeeIngredient GetIngredientsByCoffeeType(CoffeeType coffeeType, CoffeeSize coffeeSize)
     {
         CoffeeIngredient coffeeIngredient = new CoffeeIngredient();

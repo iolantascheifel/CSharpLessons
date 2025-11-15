@@ -4,10 +4,10 @@ namespace CoffeeMachineProject;
 
 public class CoffeeOrderFacade: ICoffeeOrderFacade
 {
-    private ICoffeeIngredientStorage _storage;
+    private ICoffeeIngredientFacade _storage;
     private IAccount _account;
     
-    public CoffeeOrderFacade(ICoffeeIngredientStorage coffeeIngredientStorage, IAccount account)
+    public CoffeeOrderFacade(ICoffeeIngredientFacade coffeeIngredientStorage, IAccount account)
     {
         _storage = coffeeIngredientStorage;
         _account = account;
@@ -26,7 +26,6 @@ public class CoffeeOrderFacade: ICoffeeOrderFacade
         {
             Console.WriteLine($"Not enough ingredients for order");
             order.OrderStatus = OrderStatus.Cancelled;
-            _storage.AddIngredients();
             return null;
         } 
 

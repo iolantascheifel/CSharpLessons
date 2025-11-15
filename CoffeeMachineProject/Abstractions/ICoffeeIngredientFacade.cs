@@ -9,6 +9,8 @@ public interface ICoffeeIngredientFacade
     CoffeeIngredient GetEspressoIngredient();
 
     CoffeeIngredient GetCappuccinoIngredient();
+    bool HasIngredients(CoffeeIngredient coffeeIngredient);
+    void UseIngredients(CoffeeIngredient ingredient);
 
     void UpdateIngredientsByCoffeeSize(CoffeeIngredient coffeeIngredient, CoffeeSize coffeeSize);
     

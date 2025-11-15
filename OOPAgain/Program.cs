@@ -28,6 +28,16 @@ class Program
         // RocketStation rocketStation = new RocketStation();
         // rocketStation.StartRocket(souz);
         // rocketStation.StartRocket(spaceX);
+        
+        
+        // IMapper<Employee, Manager> employeeMapper = new EmployeeMapper<Employee, Manager>();
+        Employee worker = new OfficeWorker();
+        worker.Work();
+        worker = EmployeeStaticMapper.Map<Employee, Manager>(worker);
+        worker.Work();
 
+        // IMapper<Employee, ITSpecialist> itMapper = new EmployeeMapper<Employee, ITSpecialist>();
+        worker = EmployeeStaticMapper.Map<Employee, ITSpecialist>(worker);
+        worker.Work();
     }
 }

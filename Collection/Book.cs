@@ -1,7 +1,11 @@
 namespace Collection;
 
-public class Book
+public class Book: Text
 {
-    public required string Name { get; set; }
-    public required string Author { get; set; }
+    public int PageCount { get; set; }
+
+    public override string ToString()
+    {
+        return $"{Author} - {Name},  Page Count: {PageCount}";
+    }
 }

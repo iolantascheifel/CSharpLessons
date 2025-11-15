@@ -6,9 +6,9 @@ public class CoffeeMachine: ICoffeeMachine
 {
     private IOrderRepository _orderRepository = new OrderRepository();
 
-    private IOrderFactory _orderFactory = new OrderFactory();
-    
-    private ICoffeeIngredientFacade _coffeeIngredientFacade = new CoffeeIngredientFacade();
+    private IOrderFactory _orderFactory;
+
+    private ICoffeeIngredientFacade _coffeeIngredientFacade;
 
     private IAccount _account;
     
@@ -17,12 +17,15 @@ public class CoffeeMachine: ICoffeeMachine
     private ICoffeeOrderFacade _coffeeOrderFacade;
     
     private IAccountFacade _accountFacade;
+    private IRepository<Unit, CoffeeIngredient> _ingredientRepository = new CoffeeIngredientRepository();
     
-    public CoffeeMachine(ICoffeeIngredientStorage storage, IAccount account)
+    public CoffeeMachine(IAccount account)
     {
         _account = account;
-        _coffeeOrderFacade = new CoffeeOrderFacade(storage, account);
         _accountFacade = new AccountFacade(_account);
+        _coffeeIngredientFacade = new CoffeeIngredientFacade(_ingredientRepository);
+        _coffeeOrderFacade = new CoffeeOrderFacade(_coffeeIngredientFacade, account);
+        _orderFactory = new OrderFactory(_ingredientRepository);
     }
     public int SelectCoffee(CoffeeType coffeeType, CoffeeSize coffeeSize)
     {

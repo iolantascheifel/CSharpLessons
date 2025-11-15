@@ -4,10 +4,15 @@ namespace CoffeeMachineProject;
 
 public class OrderFactory: IOrderFactory
 {
-    
-    private CoffeeIngredientFactory coffeeIngredientFactory = new CoffeeIngredientFactory();
+
+    private CoffeeIngredientFactory coffeeIngredientFactory;
     
     private CoffeePriceFacade _coffeePriceFacade = new CoffeePriceFacade();
+
+    public OrderFactory(IRepository<Unit, CoffeeIngredient> repository)
+    {
+        coffeeIngredientFactory = new CoffeeIngredientFactory(repository);
+    }
     
     public Order CreateOrder(CoffeeType coffeeType, CoffeeSize coffeeSize)
     {
