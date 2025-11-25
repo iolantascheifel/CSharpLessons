@@ -30,7 +30,13 @@ public class Workshop:IEnumerable<Instrument>
 
     public IEnumerator<Instrument> GetEnumerator()
     {
-        return new Master(instruments);
+        foreach (var ins in instruments)
+        {
+            if (!ins.IsBroken)
+            {
+                yield return ins;
+            }
+        }
     }
 
     IEnumerator IEnumerable.GetEnumerator()

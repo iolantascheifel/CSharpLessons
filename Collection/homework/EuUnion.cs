@@ -20,7 +20,13 @@ public class EuUnion : IEnumerable<Country>
 
     public IEnumerator<Country> GetEnumerator()
     {
-        return new EuEnumerator(_countries);
+        foreach (var country in _countries)
+        {
+            if (country.IsInEu)
+            {
+                yield return country;
+            }
+        }
     }
 
     IEnumerator IEnumerable.GetEnumerator()
