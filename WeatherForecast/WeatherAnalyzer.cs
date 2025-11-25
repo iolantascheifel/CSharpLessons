@@ -1,27 +1,10 @@
 namespace WeatherForecast;
 
-public class WeatherAnalyzer: IWeatherObservable
+public delegate void UpdateTemperature(int degrees);
+public class WeatherAnalyzer
 {
-    private List<IWeatherObserver> _weatherObservers = new List<IWeatherObserver>();
     private int _currentTemperature = Random.Shared.Next(-20, 20);
-    
-    public void AddObserver(IWeatherObserver weatherObserver)
-    {
-        _weatherObservers.Add(weatherObserver);
-    }
-
-    public void RemoveObserver(IWeatherObserver weatherObserver)
-    {
-        _weatherObservers.Remove(weatherObserver);
-    }
-
-    public void NotifyObservers()
-    {
-        foreach (var observer in _weatherObservers)
-        {
-           observer.UpdateTemperature(_currentTemperature);
-        }
-    }
+    public UpdateTemperature OnUpdateTemperature { get; set; }
 
     public void UpdateTemperature()
     {
@@ -29,7 +12,7 @@ public class WeatherAnalyzer: IWeatherObservable
         if (nextTemperature != _currentTemperature)
         {
             _currentTemperature = nextTemperature;
-            NotifyObservers();
+            OnUpdateTemperature(nextTemperature);
         }
     }
 }
