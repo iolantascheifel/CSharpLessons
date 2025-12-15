@@ -1,18 +1,31 @@
 namespace WeatherForecast;
 
-public delegate void UpdateTemperature(int degrees);
 public class WeatherAnalyzer
 {
     private int _currentTemperature = Random.Shared.Next(-20, 20);
-    public UpdateTemperature OnUpdateTemperature { get; set; }
-
+    private event Action<int> _onUpdateTemperature;
+    public event Action<int>? OnUpdateTemperature
+    {
+        add
+        {
+            if (value != null)
+            {
+                _onUpdateTemperature += value;
+            }
+        }
+        remove
+        {
+            _onUpdateTemperature -= value;   
+        }
+    }
+    
     public void UpdateTemperature()
     {
         int nextTemperature = Random.Shared.Next(-20, 20);
         if (nextTemperature != _currentTemperature)
         {
             _currentTemperature = nextTemperature;
-            OnUpdateTemperature(nextTemperature);
+            _onUpdateTemperature(nextTemperature);
         }
     }
 }

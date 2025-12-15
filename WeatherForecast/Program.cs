@@ -10,7 +10,7 @@ class Program
        DesktopWeatherClient desktopClient = new DesktopWeatherClient();
 
        analyzer.OnUpdateTemperature += mobileClient.UpdateTemperature; // добавить в цепочку вызовов
-       analyzer.OnUpdateTemperature(1000);
+       analyzer.OnUpdateTemperature += null;
        
        analyzer.UpdateTemperature();
        analyzer.UpdateTemperature();
