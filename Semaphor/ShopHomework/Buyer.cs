@@ -28,7 +28,7 @@ public class Buyer
         Statuses[product] = BuyerStatus.StandingInLine;
         Console.WriteLine($"Buyer {Id} standing in line to the cashier.");
         Thread.Sleep(2000);
-        product.Cashier.CashierServing(product, this);
+        product.Cashier.EnterQueue(this, product);
         Statuses[product] = BuyerStatus.Paying;
         Console.WriteLine($"Buyer {Id} paying {product.Name}.");
     }

@@ -48,9 +48,11 @@ class Program
 
         Parallel.ForEach(buyers, buyer =>
         {
-            buyer.Buying(pineapples);
-            buyer.Buying(potatoes);
-            buyer.Buying(berries);
+            var products = new[] { pineapples, potatoes, berries };
+            foreach (var product in products)
+            {
+                buyer.Buying(product);
+            }
         });
 
     }
